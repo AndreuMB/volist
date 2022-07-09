@@ -1,0 +1,8 @@
+{
+  "name": "Volist",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue",
+  "id": "0863ed8c"
+}
