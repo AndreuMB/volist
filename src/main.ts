@@ -23,10 +23,42 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import specific icons */
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+// import { BootstrapVue3 } from 'bootstrap-vue-3'
+
+import VCalendar from 'v-calendar';
+
+// Import Bootstrap and BootstrapVue CSS files (order is important)
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
+
+// Import Calendar style
+import 'v-calendar/dist/style.css';
+
+/* add icons to the library */
+library.add(fas)
+
+
+
 const app = createApp(App)
   .use(IonicVue)
-  .use(router);
-  
+  .use(router)
+  // .use(BootstrapVue3)
+  .use(VCalendar, {})
+  .component('font-awesome-icon', FontAwesomeIcon);
+
 router.isReady().then(() => {
   app.mount('#app');
 });
+
+app.config.globalProperties.$primaryColor = "orange"
