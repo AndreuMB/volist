@@ -35,6 +35,7 @@ import { defineComponent } from 'vue';
 import { IonPage, IonContent, IonDatetime, IonButton, IonInput, IonSelect } from '@ionic/vue';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import moment from 'moment';
+import { id } from 'date-fns/locale';
 
 export default defineComponent({
   name: 'Tab2Page',
@@ -104,6 +105,16 @@ export default defineComponent({
 
         while (d.getFullYear() === year) {
           var pushDate = new Date(d.getTime());
+          // let find = dates.find(date =>{
+          //   console.log("date",date);
+          //   console.log("pushDate",pushDate.toLocaleDateString('en-CA'));
+          //   return date == pushDate.toLocaleDateString('en-CA');
+          // });
+          // console.log("find = ",find);
+
+          // console.log("dates",dates);
+          
+          
           dates.push(pushDate.toLocaleDateString('en-CA'));
           d.setDate(d.getDate() + 7);
         }
@@ -111,7 +122,8 @@ export default defineComponent({
       });
 
       dates.forEach((element,index) => {
-
+        let found = this.days.find(idDate => idDate.id == element);
+        if (found) return;
         this.days.push(
           {
             id:element,
@@ -124,7 +136,7 @@ export default defineComponent({
     },
 
     validateTime(time:string,validationTime=""):boolean{
-      // console.log("time",time);
+      console.log("validationTime",validationTime);
       let d = new Date(time);
 
       if (validationTime != "") {
@@ -181,8 +193,8 @@ export default defineComponent({
     mountDatesTime(dates:Array<string>,time:{start:string,end:string}){
       let datesArrayBd = [];
       dates.forEach(date => {
-        console.log("element date = ",date+"T"+time.start.split("T")[1]);
-        console.log("element date = ",date+"T"+time.end.split("T")[1]);
+        // console.log("element date = ",date+"T"+time.start.split("T")[1]);
+        // console.log("element date = ",date+"T"+time.end.split("T")[1]);
       });
     },
 
