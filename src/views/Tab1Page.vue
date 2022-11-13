@@ -7,7 +7,7 @@
         <div class="col-12">
           <form class="row">
             <div class="input-group mb-3">
-              <ion-select class="form-control d-flex" v-model="form.weekDays" placeholder="Selecciona los dias" :multiple="true">
+              <ion-select class="form-control d-flex" v-model="form.weekDays" placeholder="Selecciona los dias" multiple>
                 <ion-select-option v-for="day in daysName" :key="day" :value="day.id">{{ day.name }}</ion-select-option>
               </ion-select>
             </div>
@@ -20,7 +20,9 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <ion-button class="col-12" color="primary" @click="onSubmitDays">Submit</ion-button>
+              <ion-button class="col-12" color="primary" @click="onSubmitDays"
+              :disabled="form.weekDays.length > 0 ? false : true"
+              >Submit</ion-button>
             </div>
           </form>
         </div>
@@ -43,6 +45,7 @@ export default defineComponent({
 
   mounted(){
     console.log("no ralles");
+    // this.form.weekDays.push({ id:1, name: 'Lunes' });
     // console.log("days",this.days);
     // console.log("dates",this.dates);
     // console.log("attributes",this.attributes);
@@ -52,7 +55,7 @@ export default defineComponent({
     return {
       days: [{id:"",date:{dateString: new Date().toLocaleDateString('en-CA') , color:"orange"}}],
       form:{
-        weekDays:[null],
+        weekDays:[],
         time:{ start: "", end:"" },
       },
       daysName: [
@@ -61,6 +64,7 @@ export default defineComponent({
         { id:5, name: 'Viernes' }, { id:6, name: 'Sabado' },
         { id:0, name: 'Domingo' }
       ],
+      testSelect: []
     }
   },
 
@@ -90,7 +94,7 @@ export default defineComponent({
       }
     },
 
-    setDatesCalendar(weekDays:Array<any>):Array<string>{
+    setDatesCalendar(weekDays:Array<number>):Array<string>{
       let dates:Array<string> = [];
 
       // go over the selected days
@@ -208,6 +212,8 @@ export default defineComponent({
       if (!this.validateTime(this.form.time.end, this.form.time.start)) return;
 
       // set schenduled days in calendar and mount array with dates
+      console.log("this.form.weekDays",this.form.weekDays);
+      
       let datesForm = this.setDatesCalendar(this.form.weekDays);
 
       // mount array with dates and times
